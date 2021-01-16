@@ -1,13 +1,17 @@
 package service;
 
 import model.Post;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.PostRepository;
 
 import java.util.List;
 
+@Component
 public class PostService {
     private final PostRepository repository;
 
+    @Autowired
     public PostService(PostRepository repository) {
         this.repository = repository;
     }
@@ -20,7 +24,7 @@ public class PostService {
         return repository.getById(id);
     }
 
-    public Post save(Post post) {
+    public Post save(Post post) throws Exception {
         return repository.save(post);
     }
 

@@ -1,6 +1,7 @@
 package servlet;
 
 import controller.PostController;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import repository.PostRepository;
 import service.PostService;
 
@@ -15,9 +16,11 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        ClassPathXmlApplicationContext context = new
+                ClassPathXmlApplicationContext("applicationContext.xml");
+        PostRepository repository = context.getBean("postRepository", PostRepository.class);
+        PostService service = context.getBean("postService", PostService.class);
+        controller = context.getBean("postController", PostController.class);
     }
 
     @Override
@@ -67,7 +70,11 @@ public class MainServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final var path = req.getRequestURI();
         if (path.equals(ENDPOINT)) {
-            controller.save(req.getReader(), resp);
+            try {
+                controller.save(req.getReader(), resp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
