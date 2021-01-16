@@ -7,7 +7,7 @@ import repository.PostRepository;
 
 import java.util.List;
 
-@Component
+
 public class PostService {
     private final PostRepository repository;
 

@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
 public class PostRepository {
 
   ConcurrentHashMap<Long, String> repositoryMap = new ConcurrentHashMap<>();
